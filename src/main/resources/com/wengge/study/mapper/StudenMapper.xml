@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wengge.study.mapper.StudenMapper">
+  <resultMap id="BaseResultMap" type="com.wengge.study.po.Student">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="classes" jdbcType="VARCHAR" property="classes" />
+    <result column="mobile" jdbcType="CHAR" property="mobile" />
+    <result column="sex" jdbcType="CHAR" property="sex" />
+    <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, age, classes, mobile, sex, id_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_student
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_student
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.wengge.study.po.Student" useGeneratedKeys="true">
+    insert into t_student (`name`, age, classes, 
+      mobile, sex, id_number)
+    values (#{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{classes,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=CHAR}, #{sex,jdbcType=CHAR}, #{idNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.wengge.study.po.Student" useGeneratedKeys="true">
+    insert into t_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="classes != null">
+        classes,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="idNumber != null">
+        id_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="classes != null">
+        #{classes,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="idNumber != null">
+        #{idNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wengge.study.po.Student">
+    update t_student
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="classes != null">
+        classes = #{classes,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="idNumber != null">
+        id_number = #{idNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wengge.study.po.Student">
+    update t_student
+    set `name` = #{name,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      classes = #{classes,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=CHAR},
+      sex = #{sex,jdbcType=CHAR},
+      id_number = #{idNumber,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
