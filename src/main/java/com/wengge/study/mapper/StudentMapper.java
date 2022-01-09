@@ -1,7 +1,7 @@
 package com.wengge.study.mapper;
 
 import com.wengge.study.po.Student;
-
+@Mapper
 public interface StudenMapper {
     int deleteByPrimaryKey(Integer id);
 
